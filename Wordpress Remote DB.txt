@@ -1,0 +1,42 @@
+Deploy a WordPress website & DB used remotely of Digital Ocean with EC2 instance.
+Steps:-
+1.	Sign in AWS management console
+2.	Type EC2 on search bar and click on EC2
+3.	Click on Instances and then click on Launch Instances
+4.	Give the name in Name & Tag field----xyz
+5.	Select the AMI in Application and OS Images---Amazon Linux and free tier  Volume Type
+6.	Select Instance type---t2.micro(free tier)
+7.	Then in key pair, click on create new key pair—enter Key pair name and select RSA, and .pem, click on create key pair
+8.	Then in Network Setting select Allow SSH, HTTPS & HTTP
+9.	And click on Launch Instance
+10.	Select EC2 instance you will get the details as below in the screen
+11.	Copy the Public IPV4 address
+12.	Click on connect button on top and again connect OR connect with ssh on console as per your choice.
+13.	Then type sudo –i to get root access
+14.	Then install Apache HTTPD service by typing  yum install httpd – y
+15.	Then yum install php7.4 php-mysql –y
+16.	Install database yum install mariadb-server –y
+17.	Then start & enable the HTTPD service by typing the command systemctl enable –now  httpd
+18.	Then start & enable the MariaDB service by typing the command systemctl enable –now  mariadb
+19.	Go to Digital Ocean website and login it
+20.	Then go to manageDatabasesCreate DB Cluster
+21.	Select datacenter region, then database engine, give name and click on Create DB Cluster
+22.	Click on Get Started
+23.	Add EC2 IP Address and your laptop IP Address
+24.	Then click on continue and Done
+25.	When DB is created then add user DB and user name
+26.	Download wordpress on /var/www/html by wget command wget http://wordpress.org/latest.tar.gz
+27.	Extract tar file tar –zxvf latest.tar.gz
+28.	Remove latest.tar.gz by rm –rvf latest.tar.gz
+29.	 Run on browser IP address/wordpress
+30.	Then enter the details on wordpress page and as per created in Digital Ocean DB, and most important on host enter the Digital Ocean Host with port no like HOST:25060
+31.	Click on submit
+32.	Then copy the content and paste it on new file wp-config.php
+33.	Then click on Run the installation
+34.	Enter the details and click on Install wordpress
+35.	Go to /etc/httpd/conf/ and open httpd.conf by vim httpd.conf
+36.	Add two line for DNS setting  ServerName www.ankushsisodiya.tech:80 & ServerName ankushsisodiya.tech:80
+37.	And edit the DocumentRoot "/var/www/html/wordpress” & <Directory "/var/www/html/wordpress">
+38.	On the wordpress dashboard click on settinggeneraladd domain name in wordpress URL & site URL and save it
+39.	Then lastly add the public IPV4 where you purchase domain name by adding A record in DNS setting
+
